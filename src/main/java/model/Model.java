@@ -1,5 +1,7 @@
 package model;
 
+import fileio.FileManipulation;
+
 import javax.servlet.http.Part;
 import java.io.*;
 import java.nio.file.Files;
@@ -10,9 +12,6 @@ import java.util.stream.Stream;
 
 public class Model
 {
-
-
-
   // Path to the data directory
   private final String dataDirPath = "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "data" + File.separator;
 
@@ -53,7 +52,7 @@ public class Model
   // Delete list directory
   public boolean deleteList(String listName) {
     try {
-      deleteDir(new File(dataDirPath + listName));
+      FileManipulation.deleteDir(new File(dataDirPath + listName));
       updateLinkToList(listName, listName);
       return true;
     } catch (IOException e){
@@ -108,7 +107,7 @@ public class Model
   // Delete item from a list
   public void deleteListItem(String listName, String itemName){
     String path = dataDirPath + listName + File.separator + itemName;
-    deleteDir(new File(path));
+    FileManipulation.deleteDir(new File(path));
   }
 
   // Editing the items in the list (set, get) :
@@ -128,7 +127,7 @@ public class Model
 
   // Set and get item text
   public void setItemText(String listName, String itemName, String text) throws IOException {
-    makeFile(dataDirPath + listName + File.separator + itemName, "text.txt", text);
+    FileManipulation.makeFile(dataDirPath + listName + File.separator + itemName, "text.txt", text);
   }
 
   public String getItemText(String listName, String itemName) throws IOException {
@@ -139,13 +138,13 @@ public class Model
       setItemText(listName, itemName, "");
     }
 
-    return readFileContent(file.getPath());
+    return FileManipulation.readFileContent(file.getPath());
   }
 
 
   // Set and get item URL
   public void setItemURL(String listName, String itemName, String URL) throws IOException {
-    makeFile(dataDirPath + listName + File.separator + itemName, "url.txt", URL);
+    FileManipulation.makeFile(dataDirPath + listName + File.separator + itemName, "url.txt", URL);
   }
 
   public String getItemURL(String listName, String itemName) throws IOException {
@@ -156,7 +155,7 @@ public class Model
       setItemURL(listName, itemName, "");
     }
 
-    return readFileContent(file.getPath());
+    return FileManipulation.readFileContent(file.getPath());
   }
 
   // Set and get item Image
@@ -186,13 +185,13 @@ public class Model
   }
 
   public void deleteItemImage(String listName, String itemName) {
-    deleteDir(new File(dataDirPath + listName + File.separator + itemName + File.separator + "img.jpg"));
+    FileManipulation.deleteDir(new File(dataDirPath + listName + File.separator + itemName + File.separator + "img.jpg"));
   }
 
 
   // Set, get and update links to other list
   public void setItemListLink(String listName, String itemName, String listToLink) throws IOException {
-    makeFile(dataDirPath + listName + File.separator + itemName, "listLink.txt", listToLink);
+    FileManipulation.makeFile(dataDirPath + listName + File.separator + itemName, "listLink.txt", listToLink);
   }
 
   public String getItemListLink(String listName, String itemName) throws IOException {
@@ -203,7 +202,7 @@ public class Model
       setItemListLink(listName, itemName, "");
     }
 
-    return readFileContent(file.getPath());
+    return FileManipulation.readFileContent(file.getPath());
   }
 
   private void updateLinkToList(String changedListName, String newPath) throws IOException {
@@ -216,37 +215,6 @@ public class Model
       }
     }
   }
-
-  // Helper methods:
-  private void deleteDir(File dir) {
-    if (dir.isDirectory()) {
-      for (File file : Objects.requireNonNull(dir.listFiles())) {
-        deleteDir(file);
-      }
-    }
-    dir.delete();
-  }
-
-  private void makeFile(String filePath, String fileName, String text) throws IOException {
-    String path = filePath + File.separator + fileName;
-    File file = new File(path);
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-      writer.write(text);
-    }
-  }
-  //test
-
-  private String readFileContent(String path) {
-    Path filePath = Paths.get(path);
-    try {
-      Optional<String> content = Files.lines(filePath)
-              .findFirst();
-      return content.orElse("");
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
 
   // Get all data into a more usable data structure
   public Map<String, Map<String, String[]>> getAllData() throws IOException {

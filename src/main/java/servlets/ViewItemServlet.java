@@ -23,9 +23,7 @@ public class ViewItemServlet extends HttpServlet{
         String itemText = model.getItemText(listName, itemName);
         String itemListLink = model.getItemListLink(listName, itemName);
         String itemURL = model.getItemURL(listName, itemName);
-        String[] itemImage = model.getItemImage(listName, itemName);
-        String itemImageName = itemImage[0];
-        String itemImagePath = itemImage[1];
+        String itemImagePath = model.getItemImage(listName, itemName);
 
         request.setAttribute("listName", listName);
         request.setAttribute("itemName", itemName);
@@ -33,7 +31,6 @@ public class ViewItemServlet extends HttpServlet{
         request.setAttribute("listNames", listNames);
         request.setAttribute("itemText", itemText);
         request.setAttribute("itemURL", itemURL);
-        request.setAttribute("itemImageName", itemImageName);
         request.setAttribute("itemImagePath", itemImagePath);
 
         ServletContext context = getServletContext();

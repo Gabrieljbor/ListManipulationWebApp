@@ -19,11 +19,8 @@ public class ViewImageServlet extends HttpServlet{
         String listName = request.getParameter("listName");
         String itemName = request.getParameter("itemName");
 
-        String[] itemImage = model.getItemImage(listName, itemName);
-        String itemImageName = itemImage[0];
-        String itemImagePath = itemImage[1];
+        String itemImagePath = model.getItemImage(listName, itemName);
 
-        request.setAttribute("itemImageName", itemImageName);
         request.setAttribute("itemImagePath", itemImagePath);
         request.setAttribute("listName", listName);
         request.setAttribute("itemName", itemName);

@@ -9,8 +9,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class FileManipulation {
+
     public static void deleteDir(File dir) {
         if (dir.isDirectory()) {
             for (File file : Objects.requireNonNull(dir.listFiles())) {
@@ -27,7 +29,6 @@ public class FileManipulation {
             writer.write(text);
         }
     }
-    //test
 
     public static String readFileContent(String path) {
         Path filePath = Paths.get(path);

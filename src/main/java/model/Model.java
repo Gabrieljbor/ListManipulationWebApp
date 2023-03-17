@@ -1,220 +1,140 @@
 package model;
 
-import fileio.FileManipulation;
+import alist.AList;
+import alist.ListFilesEditor;
+import fileio.GetFileData;
+import item.Item;
 
 import javax.servlet.http.Part;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Stream;
 
 public class Model
 {
-  // Path to the data directory
-  private final String dataDirPath = "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "data" + File.separator;
+  //ArrayList of all lists of items
+  public ArrayList<AList> allLists = new ArrayList<>();
 
+  public Model() throws IOException {
+    String[] listNames = GetFileData.getListNamesFromData();
+    for (String listName : listNames) {
+      allLists.add(new AList(listName));
+    }
+  }
+
+  public AList getList(String listName) {
+    for (AList list : allLists) {
+      if (list.name.equals(listName)) {
+        return list;
+      }
+    }
+    return null;
+  }
+
+  // Path to the data directory
   // Manage the lists (add, get, delete, edit):
   // Add a new list directory in the data directory
-  public boolean addList(String listName) {
+  public void addList(String listName) throws IOException {
     if (listName == null || listName.isEmpty()) {
-      return false;
+      return;
     }
-
-    Path listPath = Paths.get(dataDirPath, listName);
-    if (Files.exists(listPath)) {
-      return false;
-    }
-
-    try {
-      Files.createDirectories(listPath);
-      return true;
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    allLists.add(new AList(listName));
+    ListFilesEditor.addList(listName);
   }
-
   // Get the names of all the lists
   public String[] getListNames() throws IOException {
-    Path dataDir = Paths.get(dataDirPath);
-    try (Stream<Path> stream = Files.list(dataDir)) {
-      return stream
-              .filter(Files::isDirectory)
-              .map(Path::getFileName)
-              .map(Path::toString)
-              .sorted()
-              .toArray(String[]::new);
+    ArrayList<String> listNames = new ArrayList<>();
+    for (AList list : allLists) {
+      listNames.add(list.name);
     }
+    String[] names = new String[listNames.size()];
+    return listNames.toArray(names);
   }
-
-
   // Delete list directory
   public boolean deleteList(String listName) {
-    try {
-      FileManipulation.deleteDir(new File(dataDirPath + listName));
-      updateLinkToList(listName, listName);
-      return true;
-    } catch (IOException e){
-      return false;
-    }
+    this.allLists.remove(getList(listName));
+    return ListFilesEditor.deleteList(listName);
   }
-
   // Edit the name of the list
   public boolean editListName(String listName, String newListName) throws IOException {
-    if (listName.equalsIgnoreCase(newListName)) {
-      return true;
-    }
-    File oldDir = new File(dataDirPath + listName);
-    File newDir = new File(dataDirPath + newListName);
-    if (oldDir.renameTo(newDir)) {
-      updateLinkToList(listName, newListName);
-      return true;
-    } else {
-      return false;
-    }
+    AList list = getList(listName);
+    list.name = newListName;
+    return ListFilesEditor.editListName(listName, newListName);
   }
-
-
   // Manage the list items (add, get, delete, edit):
   // Add items to a list
-  public boolean addListItem(String listName, String itemName) {
-    String path = dataDirPath + listName + File.separator + itemName;
-
-    try {
-      File itemDir = new File(path);
-      if (itemDir.mkdirs()) {
-        setItemText(listName, itemName, "");
-        setItemURL(listName, itemName, "");
-        setItemListLink(listName, itemName, "");
-        return true;
-      } else {
-        return false;
-      }
-    } catch (IOException e){
-      return false;
-    }
+  public boolean addListItem(String listName, String itemName) throws IOException {
+    AList list = getList(listName);
+    list.addListItem(itemName);
+    return ListFilesEditor.addListItem(listName, itemName);
   }
-
   // Get items from a list
   public String[] getListItems(String listName){
-    File list = new File(dataDirPath + listName);
-    return list.isDirectory() ? Arrays.stream(Objects.requireNonNull(list.list()))
-            .sorted()
-            .toArray(String[]::new) : new String[0];
+    return ListFilesEditor.getListItems(listName);
   }
-
   // Delete item from a list
   public void deleteListItem(String listName, String itemName){
-    String path = dataDirPath + listName + File.separator + itemName;
-    FileManipulation.deleteDir(new File(path));
+    ListFilesEditor.deleteListItem(listName, itemName);
   }
 
   // Editing the items in the list (set, get) :
   // Edit item's name
   public boolean changeItemName(String listName, String itemName, String newName) {
-    Path oldPath = Paths.get(dataDirPath, listName, itemName);
-    Path newPath = Paths.get(dataDirPath, listName, newName);
-
-    try {
-      Files.move(oldPath, newPath);
-      return true;
-    } catch (IOException e) {
-      e.printStackTrace();
-      return false;
-    }
+    AList list = getList(listName);
+    Item item = list.getItem(itemName);
+    return item.changeItemName(newName);
   }
-
   // Set and get item text
   public void setItemText(String listName, String itemName, String text) throws IOException {
-    FileManipulation.makeFile(dataDirPath + listName + File.separator + itemName, "text.txt", text);
+    AList list = getList(listName);
+    Item item = list.getItem(itemName);
+    item.setItemText(text);
   }
-
   public String getItemText(String listName, String itemName) throws IOException {
-    String path = dataDirPath + File.separator + listName + File.separator + itemName;
-    File file = new File(path + File.separator + "text.txt");
-
-    if (!file.exists()) {
-      setItemText(listName, itemName, "");
-    }
-
-    return FileManipulation.readFileContent(file.getPath());
+    AList list = getList(listName);
+    Item item = list.getItem(itemName);
+    return item.text;
   }
-
-
   // Set and get item URL
   public void setItemURL(String listName, String itemName, String URL) throws IOException {
-    FileManipulation.makeFile(dataDirPath + listName + File.separator + itemName, "url.txt", URL);
+    AList list = getList(listName);
+    Item item = list.getItem(itemName);
+    item.setItemURL(URL);
   }
-
   public String getItemURL(String listName, String itemName) throws IOException {
-    String path = dataDirPath + listName + File.separator + itemName;
-    File file = new File(path, "url.txt");
-
-    if (!file.exists()) {
-      setItemURL(listName, itemName, "");
-    }
-
-    return FileManipulation.readFileContent(file.getPath());
+    AList list = getList(listName);
+    Item item = list.getItem(itemName);
+    return item.url;
   }
-
   // Set and get item Image
   public boolean setItemImage(String listName, String itemName, Part filePart) throws IOException {
-    File itemDir = new File(dataDirPath, listName + File.separator + itemName);
-
-    try (OutputStream out = new FileOutputStream(new File(itemDir, "img.jpg"));
-         InputStream fileContent = filePart.getInputStream()) {
-
-      byte[] buffer = new byte[8192];
-      int bytesRead;
-      while ((bytesRead = fileContent.read(buffer)) != -1) {
-        out.write(buffer, 0, bytesRead);
-      }
-      return true;
-    }
+    AList list = getList(listName);
+    Item item = list.getItem(itemName);
+    return item.setItemImage(filePart);
   }
-
-  public String[] getItemImage(String listName, String itemName) {
-    String imgPath = dataDirPath + listName + File.separator + itemName + File.separator + "img.jpg";
-    File img = new File(imgPath);
-    if (!img.exists()) {
-      return new String[]{"",""};
-    }
-    String fileName = img.getName();
-    return new String[]{fileName, "data" + File.separator + listName + File.separator + itemName + File.separator + "img.jpg"};
+  public String getItemImage(String listName, String itemName) {
+    AList list = getList(listName);
+    Item item = list.getItem(itemName);
+    return item.image;
   }
-
   public void deleteItemImage(String listName, String itemName) {
-    FileManipulation.deleteDir(new File(dataDirPath + listName + File.separator + itemName + File.separator + "img.jpg"));
+    AList list = getList(listName);
+    Item item = list.getItem(itemName);
+    item.deleteItemImage();
   }
-
-
   // Set, get and update links to other list
-  public void setItemListLink(String listName, String itemName, String listToLink) throws IOException {
-    FileManipulation.makeFile(dataDirPath + listName + File.separator + itemName, "listLink.txt", listToLink);
+  public void setItemListLink(String listName, String itemName, String listLink) throws IOException {
+    AList list = getList(listName);
+    Item item = list.getItem(itemName);
+    item.setItemListLink(listLink);
   }
 
   public String getItemListLink(String listName, String itemName) throws IOException {
-    String path = dataDirPath + listName + File.separator + itemName;
-    File file = new File(path, "listLink.txt");
-
-    if (!file.exists()) {
-      setItemListLink(listName, itemName, "");
-    }
-
-    return FileManipulation.readFileContent(file.getPath());
+    AList list = getList(listName);
+    Item item = list.getItem(itemName);
+    return item.listLink;
   }
 
-  private void updateLinkToList(String changedListName, String newPath) throws IOException {
-    for (String listName : getListNames()) {
-      for (String itemName : getListItems(listName)) {
-        String itemLink = getItemListLink(listName, itemName);
-        if (changedListName.equals(itemLink)) {
-          setItemListLink(listName, itemName, changedListName.equals(newPath) ? "" : newPath);
-        }
-      }
-    }
-  }
+
 
   // Get all data into a more usable data structure
   public Map<String, Map<String, String[]>> getAllData() throws IOException {
@@ -227,8 +147,8 @@ public class Model
         String[] itemData = new String[5];
         itemData[0] = getItemText(listName, itemName);
         itemData[1] = getItemURL(listName, itemName);
-        itemData[2] = getItemImage(listName, itemName)[0];
-        itemData[3] = getItemImage(listName, itemName)[1];
+        itemData[2] = getItemImage(listName, itemName);
+        itemData[3] = getItemImage(listName, itemName);
         itemData[4] = getItemListLink(listName, itemName);
         listData.put(itemName, itemData);
       }
@@ -236,8 +156,6 @@ public class Model
     }
     return allData;
   }
-
-
   public Map<String, List<String>> searchForItem(String searchQuery) throws IOException {
     if (getListNames() == null || getListNames().length == 0) {
       return Collections.emptyMap();

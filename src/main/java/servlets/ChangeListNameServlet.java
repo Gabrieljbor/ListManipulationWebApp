@@ -19,7 +19,7 @@ public class ChangeListNameServlet extends HttpServlet {
         String listName = request.getParameter("listName");
         String newListName = request.getParameter("newListName");
 
-        model.editListName(listName, newListName);
+        model.changeListName(listName, newListName);
 
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/viewAllLists.html");

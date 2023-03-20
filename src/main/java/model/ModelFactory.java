@@ -1,6 +1,5 @@
 package model;
 
-import java.io.File;
 import java.io.IOException;
 
 // This class gives access to the model to any other class that needs it.

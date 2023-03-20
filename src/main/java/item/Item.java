@@ -20,10 +20,9 @@ public class Item {
     }
 
 
-    public boolean changeItemName(String newName) {
+    public void changeItemName(String newName) {
         ItemFilesEditor.changeItemNameInData(this, newName);
         this.name = newName;
-        return true;
     }
 
     // Set item text
@@ -41,10 +40,9 @@ public class Item {
 
 
     // Set item Image
-    public boolean setItemImage(Part filePart) throws IOException {
+    public void setItemImage(Part filePart) throws IOException {
         this.image = "data" + File.separator + this.list + File.separator + this.name + File.separator + "img.jpg";
         ItemFilesEditor.setItemImageInData(this, filePart);
-        return true;
     }
 
     public void deleteItemImage() {

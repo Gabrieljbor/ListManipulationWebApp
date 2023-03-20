@@ -40,7 +40,7 @@ public class Model
     ListFilesEditor.addListInData(listName);
   }
   // Get the names of all the lists
-  public String[] getListNames() throws IOException {
+  public String[] getListNames() {
     ArrayList<String> listNames = new ArrayList<>();
     for (AList list : allLists) {
       listNames.add(list.name);
@@ -54,9 +54,12 @@ public class Model
     ListFilesEditor.deleteListInData(listName);
   }
   // Edit the name of the list
-  public void editListName(String listName, String newListName) throws IOException {
+  public void changeListName(String listName, String newListName) throws IOException {
     AList list = getList(listName);
     list.name = newListName;
+    for (Item item : getList(newListName).items) {
+      item.image = "data" + File.separator + newListName + File.separator + item.name + File.separator + "img.jpg";
+    }
     ListFilesEditor.editListNameInData(listName, newListName);
   }
   // Manage the list items (add, get, delete, edit):
@@ -68,7 +71,12 @@ public class Model
   }
   // Get items from a list
   public String[] getListItems(String listName) {
-    return ListFilesEditor.getListItems(listName);
+    ArrayList<String> itemNames = new ArrayList<>();
+    for (Item item : getList(listName).items) {
+      itemNames.add(item.name);
+    }
+    String[] names = new String[itemNames.size()];
+    return itemNames.toArray(names);
   }
   // Delete item from a list
   public void deleteListItem(String listName, String itemName){
@@ -90,7 +98,7 @@ public class Model
     Item item = list.getItem(itemName);
     item.setItemText(text);
   }
-  public String getItemText(String listName, String itemName) throws IOException {
+  public String getItemText(String listName, String itemName) {
     AList list = getList(listName);
     Item item = list.getItem(itemName);
     return item.text;
@@ -101,7 +109,7 @@ public class Model
     Item item = list.getItem(itemName);
     item.setItemURL(URL);
   }
-  public String getItemURL(String listName, String itemName) throws IOException {
+  public String getItemURL(String listName, String itemName) {
     AList list = getList(listName);
     Item item = list.getItem(itemName);
     return item.url;
@@ -129,14 +137,14 @@ public class Model
     item.setItemListLink(listLink);
   }
 
-  public String getItemListLink(String listName, String itemName) throws IOException {
+  public String getItemListLink(String listName, String itemName) {
     AList list = getList(listName);
     Item item = list.getItem(itemName);
     return item.listLink;
   }
 
 
-  public Map<String, List<String>> searchForItem(String searchQuery) throws IOException {
+  public Map<String, List<String>> searchForItem(String searchQuery) {
     if (getListNames() == null || getListNames().length == 0) {
       return Collections.emptyMap();
     }
@@ -154,7 +162,7 @@ public class Model
     return searchResults;
   }
 
-  public List<String> searchForList(String searchQuery) throws IOException {
+  public List<String> searchForList(String searchQuery) {
     if (getListNames() == null || getListNames().length == 0) {
       return Collections.emptyList();
     }

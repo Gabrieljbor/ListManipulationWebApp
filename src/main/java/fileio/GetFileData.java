@@ -23,7 +23,7 @@ public class GetFileData {
         }
     }
 
-    public static String[] getItemNamesFromData(String listName) throws IOException {
+    public static String[] getItemNamesFromData(String listName) {
 
         Path dataDir = Paths.get(dataDirPath + File.separator + listName);
         try (Stream<Path> stream = Files.list(dataDir)) {
@@ -38,7 +38,7 @@ public class GetFileData {
         }
     }
 
-    public static String getItemTextFromData(String listName, String itemName) throws IOException {
+    public static String getItemTextFromData(String listName, String itemName) {
         String path = dataDirPath + File.separator + listName + File.separator + itemName;
         File file = new File(path + File.separator + "text.txt");
 
@@ -49,7 +49,7 @@ public class GetFileData {
         return FileHelpers.readFileContent(file.getPath());
     }
 
-    public static String getItemURLFromData(String listName, String itemName) throws IOException {
+    public static String getItemURLFromData(String listName, String itemName) {
         String path = dataDirPath + listName + File.separator + itemName;
         File file = new File(path, "url.txt");
 
@@ -69,7 +69,7 @@ public class GetFileData {
         return "data" + File.separator + listName + File.separator + itemName + File.separator + "img.jpg";
     }
 
-    public static String getItemListLinkFromData(String listName, String itemName) throws IOException {
+    public static String getItemListLinkFromData(String listName, String itemName) {
         String path = dataDirPath + listName + File.separator + itemName;
         File file = new File(path, "listLink.txt");
 

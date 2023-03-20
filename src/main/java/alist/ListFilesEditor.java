@@ -70,13 +70,6 @@ public class ListFilesEditor {
         }
     }
 
-    public static String[] getListItems(String listName){
-        File list = new File(dataDirPath + listName);
-        return list.isDirectory() ? Arrays.stream(Objects.requireNonNull(list.list()))
-                .sorted()
-                .toArray(String[]::new) : new String[0];
-    }
-
     public static void deleteListItem(String listName, String itemName){
         String path = dataDirPath + listName + File.separator + itemName;
         FileHelpers.deleteDir(new File(path));

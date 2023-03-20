@@ -2,10 +2,11 @@
 /Users/gabrielbor/Documents/MathComp - UCL/Year 1/Object-Oriented Programming/ListManipulationWebApp/src/main/java/fileio/GetFileData.java
 /Users/gabrielbor/Documents/MathComp - UCL/Year 1/Object-Oriented Programming/ListManipulationWebApp/src/main/java/main/Main.java
 /Users/gabrielbor/Documents/MathComp - UCL/Year 1/Object-Oriented Programming/ListManipulationWebApp/src/main/java/servlets/SearchServlet.java
-/Users/gabrielbor/Documents/MathComp - UCL/Year 1/Object-Oriented Programming/ListManipulationWebApp/src/main/java/fileio/FileManipulation.java
 /Users/gabrielbor/Documents/MathComp - UCL/Year 1/Object-Oriented Programming/ListManipulationWebApp/src/main/java/servlets/SetItemTextServlet.java
+/Users/gabrielbor/Documents/MathComp - UCL/Year 1/Object-Oriented Programming/ListManipulationWebApp/src/main/java/item/ItemFilesEditor.java
 /Users/gabrielbor/Documents/MathComp - UCL/Year 1/Object-Oriented Programming/ListManipulationWebApp/src/main/java/servlets/ViewListServlet.java
 /Users/gabrielbor/Documents/MathComp - UCL/Year 1/Object-Oriented Programming/ListManipulationWebApp/src/main/java/servlets/ChangeItemNameServlet.java
+/Users/gabrielbor/Documents/MathComp - UCL/Year 1/Object-Oriented Programming/ListManipulationWebApp/src/main/java/fileio/FileHelpers.java
 /Users/gabrielbor/Documents/MathComp - UCL/Year 1/Object-Oriented Programming/ListManipulationWebApp/src/main/java/servlets/ViewItemServlet.java
 /Users/gabrielbor/Documents/MathComp - UCL/Year 1/Object-Oriented Programming/ListManipulationWebApp/src/main/java/servlets/SetItemImageServlet.java
 /Users/gabrielbor/Documents/MathComp - UCL/Year 1/Object-Oriented Programming/ListManipulationWebApp/src/main/java/servlets/AddItemServlet.java

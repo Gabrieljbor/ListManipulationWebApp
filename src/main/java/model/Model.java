@@ -136,26 +136,6 @@ public class Model
   }
 
 
-//  // Get all data into a more usable data structure
-//  public Map<String, Map<String, String[]>> getAllData() throws IOException {
-//    Map<String, Map<String, String[]>> allData = new TreeMap<>();
-//
-//    for (String listName : getListNames()) {
-//      Map<String, String[]> listData = new TreeMap<>();
-//
-//      for (String itemName : getListItems(listName)) {
-//        String[] itemData = new String[5];
-//        itemData[0] = getItemText(listName, itemName);
-//        itemData[1] = getItemURL(listName, itemName);
-//        itemData[2] = getItemImage(listName, itemName);
-//        itemData[3] = getItemImage(listName, itemName);
-//        itemData[4] = getItemListLink(listName, itemName);
-//        listData.put(itemName, itemData);
-//      }
-//      allData.put(listName, listData);
-//    }
-//    return allData;
-//  }
   public Map<String, List<String>> searchForItem(String searchQuery) throws IOException {
     if (getListNames() == null || getListNames().length == 0) {
       return Collections.emptyMap();

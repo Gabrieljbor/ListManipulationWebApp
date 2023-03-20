@@ -30,7 +30,6 @@ public class Model
     return null;
   }
 
-  // Path to the data directory
   // Manage the lists (add, get, delete, edit):
   // Add a new list directory in the data directory
   public void addList(String listName) throws IOException {
@@ -38,7 +37,7 @@ public class Model
       return;
     }
     allLists.add(new AList(listName));
-    ListFilesEditor.addList(listName);
+    ListFilesEditor.addListInData(listName);
   }
   // Get the names of all the lists
   public String[] getListNames() throws IOException {
@@ -50,38 +49,40 @@ public class Model
     return listNames.toArray(names);
   }
   // Delete list directory
-  public boolean deleteList(String listName) {
+  public void deleteList(String listName) {
     this.allLists.remove(getList(listName));
-    return ListFilesEditor.deleteList(listName);
+    ListFilesEditor.deleteListInData(listName);
   }
   // Edit the name of the list
-  public boolean editListName(String listName, String newListName) throws IOException {
+  public void editListName(String listName, String newListName) throws IOException {
     AList list = getList(listName);
     list.name = newListName;
-    return ListFilesEditor.editListName(listName, newListName);
+    ListFilesEditor.editListNameInData(listName, newListName);
   }
   // Manage the list items (add, get, delete, edit):
   // Add items to a list
-  public boolean addListItem(String listName, String itemName) throws IOException {
+  public void addListItem(String listName, String itemName) throws IOException {
     AList list = getList(listName);
     list.addListItem(itemName);
-    return ListFilesEditor.addListItem(listName, itemName);
+    ListFilesEditor.addListItemInData(listName, itemName);
   }
   // Get items from a list
-  public String[] getListItems(String listName){
+  public String[] getListItems(String listName) {
     return ListFilesEditor.getListItems(listName);
   }
   // Delete item from a list
   public void deleteListItem(String listName, String itemName){
+    AList list = getList(listName);
+    list.items.remove(list.getItem(itemName));
     ListFilesEditor.deleteListItem(listName, itemName);
   }
 
   // Editing the items in the list (set, get) :
   // Edit item's name
-  public boolean changeItemName(String listName, String itemName, String newName) {
+  public void changeItemName(String listName, String itemName, String newName) {
     AList list = getList(listName);
     Item item = list.getItem(itemName);
-    return item.changeItemName(newName);
+    item.changeItemName(newName);
   }
   // Set and get item text
   public void setItemText(String listName, String itemName, String text) throws IOException {
@@ -106,10 +107,10 @@ public class Model
     return item.url;
   }
   // Set and get item Image
-  public boolean setItemImage(String listName, String itemName, Part filePart) throws IOException {
+  public void setItemImage(String listName, String itemName, Part filePart) throws IOException {
     AList list = getList(listName);
     Item item = list.getItem(itemName);
-    return item.setItemImage(filePart);
+    item.setItemImage(filePart);
   }
   public String getItemImage(String listName, String itemName) {
     AList list = getList(listName);
@@ -135,27 +136,26 @@ public class Model
   }
 
 
-
-  // Get all data into a more usable data structure
-  public Map<String, Map<String, String[]>> getAllData() throws IOException {
-    Map<String, Map<String, String[]>> allData = new TreeMap<>();
-
-    for (String listName : getListNames()) {
-      Map<String, String[]> listData = new TreeMap<>();
-
-      for (String itemName : getListItems(listName)) {
-        String[] itemData = new String[5];
-        itemData[0] = getItemText(listName, itemName);
-        itemData[1] = getItemURL(listName, itemName);
-        itemData[2] = getItemImage(listName, itemName);
-        itemData[3] = getItemImage(listName, itemName);
-        itemData[4] = getItemListLink(listName, itemName);
-        listData.put(itemName, itemData);
-      }
-      allData.put(listName, listData);
-    }
-    return allData;
-  }
+//  // Get all data into a more usable data structure
+//  public Map<String, Map<String, String[]>> getAllData() throws IOException {
+//    Map<String, Map<String, String[]>> allData = new TreeMap<>();
+//
+//    for (String listName : getListNames()) {
+//      Map<String, String[]> listData = new TreeMap<>();
+//
+//      for (String itemName : getListItems(listName)) {
+//        String[] itemData = new String[5];
+//        itemData[0] = getItemText(listName, itemName);
+//        itemData[1] = getItemURL(listName, itemName);
+//        itemData[2] = getItemImage(listName, itemName);
+//        itemData[3] = getItemImage(listName, itemName);
+//        itemData[4] = getItemListLink(listName, itemName);
+//        listData.put(itemName, itemData);
+//      }
+//      allData.put(listName, listData);
+//    }
+//    return allData;
+//  }
   public Map<String, List<String>> searchForItem(String searchQuery) throws IOException {
     if (getListNames() == null || getListNames().length == 0) {
       return Collections.emptyMap();

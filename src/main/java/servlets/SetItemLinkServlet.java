@@ -19,6 +19,7 @@ public class SetItemLinkServlet extends HttpServlet{
         String listName = request.getParameter("listName");
         String itemName = request.getParameter("itemName");
         String itemLinkedList = request.getParameter("itemLinkedList");
+
         model.setItemListLink(listName, itemName, itemLinkedList);
 
         request.setAttribute("listName", listName);

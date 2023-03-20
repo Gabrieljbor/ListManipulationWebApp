@@ -21,6 +21,7 @@ public class SearchServlet extends HttpServlet{
         // Retrieves the model and gets the necessary parameters to search for an item
         Model model = ModelFactory.getModel();
         String searchQuery = Objects.requireNonNullElse(request.getParameter("searchQuery"), "");
+
         Map<String, List<String>> itemSearchResults = model.searchForItem(searchQuery);
         List<String> matchingLists = model.searchForList(searchQuery);
 

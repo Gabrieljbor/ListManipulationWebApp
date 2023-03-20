@@ -14,7 +14,7 @@ public class AList {
 
     public AList(String listName) throws IOException {
         this.name = listName;
-        String [] itemNames = GetFileData.getItemNames(this.name);
+        String [] itemNames = GetFileData.getItemNamesFromData(this.name);
         ArrayList<Item> items = new ArrayList<>();
         for (String itemName : itemNames) {
             items.add(new Item(listName, itemName));
@@ -35,7 +35,7 @@ public class AList {
             return;
         }
         items.add(new Item(this.name, itemName));
-        ListFilesEditor.addListItem(this.name, itemName);
+        ListFilesEditor.addListItemInData(this.name, itemName);
     }
 
 

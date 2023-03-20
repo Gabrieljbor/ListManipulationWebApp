@@ -23,7 +23,7 @@ public class GetFileData {
         }
     }
 
-    public static String[] getItemNames(String listName) throws IOException {
+    public static String[] getItemNamesFromData(String listName) throws IOException {
 
         Path dataDir = Paths.get(dataDirPath + File.separator + listName);
         try (Stream<Path> stream = Files.list(dataDir)) {
@@ -38,7 +38,7 @@ public class GetFileData {
         }
     }
 
-    public static String getItemText(String listName, String itemName) throws IOException {
+    public static String getItemTextFromData(String listName, String itemName) throws IOException {
         String path = dataDirPath + File.separator + listName + File.separator + itemName;
         File file = new File(path + File.separator + "text.txt");
 
@@ -46,10 +46,10 @@ public class GetFileData {
             return "";
         }
 
-        return FileManipulation.readFileContent(file.getPath());
+        return FileHelpers.readFileContent(file.getPath());
     }
 
-    public static String getItemURL(String listName, String itemName) throws IOException {
+    public static String getItemURLFromData(String listName, String itemName) throws IOException {
         String path = dataDirPath + listName + File.separator + itemName;
         File file = new File(path, "url.txt");
 
@@ -57,10 +57,10 @@ public class GetFileData {
             return "";
         }
 
-        return FileManipulation.readFileContent(file.getPath());
+        return FileHelpers.readFileContent(file.getPath());
     }
 
-    public static String getItemImage(String listName, String itemName) {
+    public static String getItemImageFromData(String listName, String itemName) {
         String imgPath = dataDirPath + listName + File.separator + itemName + File.separator + "img.jpg";
         File img = new File(imgPath);
         if (!img.exists()) {
@@ -69,14 +69,13 @@ public class GetFileData {
         return "data" + File.separator + listName + File.separator + itemName + File.separator + "img.jpg";
     }
 
-    public static String getItemListLink(String listName, String itemName) throws IOException {
+    public static String getItemListLinkFromData(String listName, String itemName) throws IOException {
         String path = dataDirPath + listName + File.separator + itemName;
         File file = new File(path, "listLink.txt");
 
         if (!file.exists()) {
             return "";
         }
-
-        return FileManipulation.readFileContent(file.getPath());
+        return FileHelpers.readFileContent(file.getPath());
     }
 }

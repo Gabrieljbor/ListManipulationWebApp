@@ -18,6 +18,7 @@ public class DeleteItemServlet extends HttpServlet {
         Model model = ModelFactory.getModel();
         String listName = request.getParameter("listName");
         String itemToDelete = request.getParameter("itemToDelete");
+
         model.deleteListItem(listName, itemToDelete);
 
         request.setAttribute("listName", listName);

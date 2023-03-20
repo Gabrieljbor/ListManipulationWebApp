@@ -6,7 +6,6 @@ servlets/SearchServlet.class
 model/Model.class
 main/Main.class
 servlets/DeleteItemFileServlet.class
-fileio/FileManipulation.class
 servlets/ChangeItemNameServlet.class
 servlets/ViewAllListsServlet.class
 servlets/ViewListServlet.class
@@ -18,7 +17,9 @@ servlets/ViewImageServlet.class
 servlets/SetItemLinkServlet.class
 servlets/ChangeListNameServlet.class
 servlets/ViewItemServlet.class
+fileio/FileHelpers.class
 alist/AList.class
+item/ItemFilesEditor.class
 servlets/SetItemTextServlet.class
 servlets/DeleteListServlet.class
 fileio/GetFileData.class

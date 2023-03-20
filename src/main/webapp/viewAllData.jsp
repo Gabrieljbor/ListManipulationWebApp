@@ -1,7 +1,9 @@
 <%@ page import="java.util.Map" %>
+<%@ page import="model.Model" %>
+<%@ page import="item.Item" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
-    Map<String, Map<String, String[]>> data = (Map<String, Map<String, String[]>>) request.getAttribute("data");
+    Model model = (Model) request.getAttribute("data");
 %>
 
 <!DOCTYPE html>
@@ -25,7 +27,7 @@
         <h1 class="text-center">Data</h1>
 
         <%
-            for (String listName : data.keySet()) {
+            for (String listName : model.getListNames()) {
         %>
 
         <div id="<%=listName%>">
@@ -45,18 +47,18 @@
                         <th class="text-center">List Link</th>
                     </tr>
                     <%
-                        for (String itemName : data.get(listName).keySet()){
+                        for (Item item : model.getList(listName).items){
                     %>
                     <tr>
-                        <td><a style="color: black" href="viewItem.html?listName=<%=listName%>&itemName=<%=itemName%>"><%=itemName%></a></td>
-                        <td><%=data.get(listName).get(itemName)[0]%></td>
-                        <td><a href="<%=data.get(listName).get(itemName)[1]%>" target="_blank"><%=data.get(listName).get(itemName)[1]%></a></td>
+                        <td><a style="color: black" href="viewItem.html?listName=<%=listName%>&itemName=<%=item.name%>"><%=item.name%></a></td>
+                        <td><%=item.text%></td>
+                        <td><a href="<%=item.url%>" target="_blank"><%=item.url%></a></td>
                         <td>
-                            <% if (!(data.get(listName).get(itemName)[2]).equals("")) {%>
-                            <a href="viewImage.html?listName=<%=listName%>&itemName=<%=itemName%>" target="_blank"><img style="max-width: 100%; max-height: 75px;" src="<%=data.get(listName).get(itemName)[3]%>"/></a>
+                            <% if (!(item.image).equals("")) {%>
+                            <a href="viewImage.html?listName=<%=listName%>&itemName=<%=item.name%>" target="_blank"><img style="max-width: 100%; max-height: 75px;" src="<%=item.image%>"/></a>
                             <%}%>
                         </td>
-                        <td><a href="viewList.html?listName=<%=data.get(listName).get(itemName)[4]%>"><%=data.get(listName).get(itemName)[4]%></a></td>
+                        <td><a href="viewList.html?listName=<%=item.listLink%>"><%=item.listLink%></a></td>
                     </tr>
                     <%}%>
                 </tbody>

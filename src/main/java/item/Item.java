@@ -1,83 +1,60 @@
 package item;
 
-import fileio.FileManipulation;
 import fileio.GetFileData;
 
 import javax.servlet.http.Part;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
 
 public class Item {
-    private static final String dataDirPath = "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "data" + File.separator;
 
     public String list, name, text, url, image, listLink;
 
     public Item(String listName, String itemName) throws IOException {
         this.list = listName;
         this.name = itemName;
-        this.text = GetFileData.getItemText(listName, itemName);
-        this.url = GetFileData.getItemURL(listName, itemName);
-        this.image = GetFileData.getItemImage(listName, itemName);
-        this.listLink = GetFileData.getItemListLink(listName, itemName);
+        this.text = GetFileData.getItemTextFromData(listName, itemName);
+        this.url = GetFileData.getItemURLFromData(listName, itemName);
+        this.image = GetFileData.getItemImageFromData(listName, itemName);
+        this.listLink = GetFileData.getItemListLinkFromData(listName, itemName);
     }
 
 
     public boolean changeItemName(String newName) {
-        String oldName = this.name;
+        ItemFilesEditor.changeItemNameInData(this, newName);
         this.name = newName;
-        Path oldPath = Paths.get(dataDirPath, this.list, oldName);
-        Path newPath = Paths.get(dataDirPath, this.list, newName);
-
-        try {
-            Files.move(oldPath, newPath);
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+        return true;
     }
 
     // Set item text
     public void setItemText(String text) throws IOException {
         this.text = text;
-        FileManipulation.makeFile(dataDirPath + this.list + File.separator + this.name, "text.txt", text);
+        ItemFilesEditor.setItemTextInData(this, text);
     }
 
 
-    // Set and get item URL
+    // Set item URL
     public void setItemURL(String URL) throws IOException {
         this.url = URL;
-        FileManipulation.makeFile(dataDirPath + this.list + File.separator + this.name, "url.txt", URL);
+        ItemFilesEditor.setItemURLInData(this, URL);
     }
 
 
-    // Set and get item Image
+    // Set item Image
     public boolean setItemImage(Part filePart) throws IOException {
-        File itemDir = new File(dataDirPath, this.list + File.separator + this.name);
-
-        try (OutputStream out = new FileOutputStream(new File(itemDir, "img.jpg"));
-             InputStream fileContent = filePart.getInputStream()) {
-
-            byte[] buffer = new byte[8192];
-            int bytesRead;
-            while ((bytesRead = fileContent.read(buffer)) != -1) {
-                out.write(buffer, 0, bytesRead);
-            }
-            this.image = "data" + File.separator + this.list + File.separator + this.name + File.separator + "img.jpg";
-            return true;
-        }
+        this.image = "data" + File.separator + this.list + File.separator + this.name + File.separator + "img.jpg";
+        ItemFilesEditor.setItemImageInData(this, filePart);
+        return true;
     }
 
     public void deleteItemImage() {
         this.image = "";
-        FileManipulation.deleteDir(new File(dataDirPath + this.list + File.separator + this.name + File.separator + "img.jpg"));
+        ItemFilesEditor.deleteItemImageInData(this);
     }
 
     public void setItemListLink(String listLink) throws IOException {
         this.listLink = listLink;
-        FileManipulation.makeFile(dataDirPath + this.list + File.separator + this.name, "listLink.txt", listLink);
+        ItemFilesEditor.setItemListLinkInData(this, listLink);
     }
 
 }

@@ -17,9 +17,8 @@ import java.util.Map;
 public class ViewAllDataServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Model model = ModelFactory.getModel();
-        Map<String, Map<String, String[]>> data = model.getAllData();
 
-        request.setAttribute("data", data);
+        request.setAttribute("data", model);
 
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/viewAllData.jsp");

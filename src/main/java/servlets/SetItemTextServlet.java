@@ -19,6 +19,7 @@ public class SetItemTextServlet extends HttpServlet{
         String listName = request.getParameter("listName");
         String itemName = request.getParameter("itemName");
         String itemText = request.getParameter("itemText");
+
         model.setItemText(listName, itemName, itemText);
 
         request.setAttribute("listName", listName);

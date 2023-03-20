@@ -1,10 +1,11 @@
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.Map" %>
+<%@ page import="item.Item" %>
+<%@ page import="alist.AList" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
-    Map<String, List<String>> searchResults = (Map<String, List<String>>) request.getAttribute("itemSearchResults");
     String searchQuery = (String) request.getAttribute("searchQuery");
-    List<String> matchingLists = (List<String>) request.getAttribute("matchingLists");
+    List<Item> searchResults = (List<Item>) request.getAttribute("itemSearchResults");
+    List<AList> matchingLists = (List<AList>) request.getAttribute("matchingLists");
 %>
 
 <!DOCTYPE html>
@@ -21,27 +22,21 @@
         <h2><u>Items</u></h2>
         <div>
             <%
-                for (String listName : searchResults.keySet()) {
-            %>
-                    <% if (!searchResults.get(listName).isEmpty()) { %>
-                        <h4><a href="viewList.html?listName=<%=listName%>" style="color: black">In <%=listName%></a></h4>
+                String currentListName = "";
+                for (Item item : searchResults) {
+                    if (!item.list.equals(currentListName)) { %>
+                        <h4><a href="viewList.html?listName=<%=item.list%>" style="color: black">In <%=item.list%></a></h4>
                     <%}%>
-
-                <%
-                    for (String searchResult : searchResults.get(listName)) {
-                %>
-                        <a href="viewItem.html?listName=<%=listName%>&itemName=<%=searchResult%>"><%=searchResult%></a>
-                        <br>
-                <%}%>
-            <br>
+                    <a href="viewItem.html?listName=<%=item.list%>&itemName=<%=item.name%>"><%=item.name%></a>
+                    <br>
             <%}%>
         </div>
-
+        <br>
         <h2><u>Lists:</u></h2>
         <%
-            for (String matchingList : matchingLists) {
+            for (AList list : matchingLists) {
         %>
-            <a href="viewList.html?listName=<%=matchingList%>"><%=matchingList%></a>
+            <a href="viewList.html?listName=<%=list.name%>"><%=list.name%></a>
             <br>
         <%}%>
     </div>

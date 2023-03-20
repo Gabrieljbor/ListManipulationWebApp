@@ -36,6 +36,11 @@ public class Model
     if (listName == null || listName.isEmpty()) {
       return;
     }
+    for (AList list : allLists) {
+      if (listName.equals(list.name)) {
+        return;
+      }
+    }
     allLists.add(new AList(listName));
     ListFilesEditor.addListInData(listName);
   }
@@ -55,6 +60,11 @@ public class Model
   }
   // Edit the name of the list
   public void changeListName(String listName, String newListName) throws IOException {
+    for (AList list : allLists) {
+      if (newListName.equals(list.name)) {
+        return;
+      }
+    }
     AList list = getList(listName);
     list.name = newListName;
     for (Item item : getList(newListName).items) {
@@ -144,35 +154,32 @@ public class Model
   }
 
 
-  public Map<String, List<String>> searchForItem(String searchQuery) {
+  public List<Item> searchForItem(String searchQuery) {
     if (getListNames() == null || getListNames().length == 0) {
-      return Collections.emptyMap();
+      return Collections.emptyList();
     }
-    Map<String, List<String>> searchResults = new TreeMap<>();
-    for (String list : getListNames()) {
-      String[] items = getListItems(list);
-      ArrayList<String> matchingItems = new ArrayList<>();
-      for (String item : items) {
-        if (item.toLowerCase().contains(searchQuery.toLowerCase())) {
-          matchingItems.add(item);
+    List<Item> searchResults = new ArrayList<>();
+    for (AList list : allLists) {
+      for (Item item : list.items) {
+        if (item.name.toLowerCase().contains(searchQuery.toLowerCase())) {
+          searchResults.add(item);
         }
       }
-      searchResults.put(list, matchingItems.stream().toList());
     }
     return searchResults;
   }
 
-  public List<String> searchForList(String searchQuery) {
+  public List<AList> searchForList(String searchQuery) {
     if (getListNames() == null || getListNames().length == 0) {
       return Collections.emptyList();
     }
-    List<String> matchingLists = new ArrayList<>();
-    for (String list : getListNames()) {
-      if (list.toLowerCase().contains(searchQuery.toLowerCase())) {
-        matchingLists.add(list);
+    List<AList> searchResults = new ArrayList<>();
+    for (AList list : allLists) {
+      if (list.name.toLowerCase().contains(searchQuery.toLowerCase())) {
+        searchResults.add(list);
       }
     }
-    return matchingLists;
+    return searchResults;
   }
 
 }

@@ -1,5 +1,7 @@
 package servlets;
 
+import alist.AList;
+import item.Item;
 import model.Model;
 import model.ModelFactory;
 
@@ -22,8 +24,8 @@ public class SearchServlet extends HttpServlet{
         Model model = ModelFactory.getModel();
         String searchQuery = Objects.requireNonNullElse(request.getParameter("searchQuery"), "");
 
-        Map<String, List<String>> itemSearchResults = model.searchForItem(searchQuery);
-        List<String> matchingLists = model.searchForList(searchQuery);
+        List<Item> itemSearchResults = model.searchForItem(searchQuery);
+        List<AList> matchingLists = model.searchForList(searchQuery);
 
         // Adds the data to the request object that will be sent to the Java Server Page, so that it can access the data
         request.setAttribute("itemSearchResults", itemSearchResults);

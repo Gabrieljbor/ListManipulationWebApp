@@ -34,6 +34,11 @@ public class AList {
         if (itemName == null || itemName.isEmpty()) {
             return;
         }
+        for (Item item : this.items) {
+            if (itemName.equals(item.name)) {
+                return;
+            }
+        }
         items.add(new Item(this.name, itemName));
         ListFilesEditor.addListItemInData(this.name, itemName);
     }

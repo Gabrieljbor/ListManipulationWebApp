@@ -4,6 +4,7 @@ import alist.AList;
 import alist.ListFilesEditor;
 import fileio.GetFileData;
 import item.Item;
+import item.ItemFilesEditor;
 
 import javax.servlet.http.Part;
 import java.io.*;
@@ -64,12 +65,21 @@ public class Model
       if (newListName.equals(list.name)) {
         return;
       }
+      for (Item item : list.items) {
+          if (item.listLink.equals(listName)) {
+            ItemFilesEditor.setItemListLinkInData(item, newListName);
+          }
+      }
     }
     AList list = getList(listName);
     list.name = newListName;
-    for (Item item : getList(newListName).items) {
-      item.image = "data" + File.separator + newListName + File.separator + item.name + File.separator + "img.jpg";
+    for (Item item : list.items) {
+      item.list = newListName;
+      if (!item.image.equals("")) {
+        item.image = "data" + File.separator + newListName + File.separator + item.name + File.separator + "img.jpg";
+      }
     }
+
     ListFilesEditor.editListNameInData(listName, newListName);
   }
   // Manage the list items (add, get, delete, edit):

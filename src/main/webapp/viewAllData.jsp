@@ -1,4 +1,3 @@
-<%@ page import="java.util.Map" %>
 <%@ page import="model.Model" %>
 <%@ page import="item.Item" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
@@ -35,7 +34,7 @@
             <table class="table table-bordered table-striped text-center">
                 <thead style="background-color: #a6b3ec;">
                     <tr>
-                        <th colspan="5" style="min-width: 200px;" class="text-center"><a href="viewList.html?listName=<%=listName%>" style="color:rebeccapurple; font-size: large"><%=listName%></a></th>
+                        <th colspan="5" style="min-width: 200px;" class="text-center"><a href="viewListData.html?listName=<%=listName%>" style="color:rebeccapurple; font-size: large"><%=listName%></a></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,7 +57,7 @@
                             <a href="viewImage.html?listName=<%=listName%>&itemName=<%=item.name%>" target="_blank"><img style="max-width: 100%; max-height: 75px;" src="<%=item.image%>"/></a>
                             <%}%>
                         </td>
-                        <td><a href="viewList.html?listName=<%=item.listLink%>"><%=item.listLink%></a></td>
+                        <td><a href="viewListData.html?listName=<%=item.listLink%>"><%=item.listLink%></a></td>
                     </tr>
                     <%}%>
                 </tbody>

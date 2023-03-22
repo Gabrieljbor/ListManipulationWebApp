@@ -1,5 +1,6 @@
 package servlets;
 
+import item.Item;
 import model.Model;
 import model.ModelFactory;
 
@@ -19,19 +20,11 @@ public class ViewItemServlet extends HttpServlet{
         String listName = request.getParameter("listName");
         String itemName = request.getParameter("itemName");
 
+        Item item = model.getList(listName).getItem(itemName);
         String[] listNames = model.getListNames();
-        String itemText = model.getItemText(listName, itemName);
-        String itemListLink = model.getItemListLink(listName, itemName);
-        String itemURL = model.getItemURL(listName, itemName);
-        String itemImagePath = model.getItemImage(listName, itemName);
 
-        request.setAttribute("listName", listName);
-        request.setAttribute("itemName", itemName);
-        request.setAttribute("itemListLink", itemListLink);
+        request.setAttribute("item", item);
         request.setAttribute("listNames", listNames);
-        request.setAttribute("itemText", itemText);
-        request.setAttribute("itemURL", itemURL);
-        request.setAttribute("itemImagePath", itemImagePath);
 
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/viewItem.jsp");

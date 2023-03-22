@@ -19,7 +19,7 @@
             <div class="input-group mb-3 ">
                 <form action="changeListName.html" method="get">
                     <input type="hidden" name="listName" value="<%=listName%>">
-                    <input type="text" class="form-control" name ="newListName" pattern="[a-zA-Z0-9]+" placeholder="Edit alist name" required style="width: 120px; position: center">
+                    <input type="text" class="form-control" name ="newListName" pattern="[a-zA-Z0-9]+" placeholder="Edit list name" required style="width: 120px; position: center">
                     <button type="submit" class="btn btn-outline-primary">Update</button>
                 </form>
             </div>

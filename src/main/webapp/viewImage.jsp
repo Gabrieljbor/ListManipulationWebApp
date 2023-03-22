@@ -1,8 +1,7 @@
+<%@ page import="item.Item" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    String listName = (String) request.getAttribute("listName");
-    String itemName = (String) request.getAttribute("itemName");
-    String itemImagePath = (String) request.getAttribute("itemImagePath");
+    Item item = (Item) request.getAttribute("item");
 %>
 
 <!DOCTYPE html>
@@ -24,10 +23,10 @@
 
 <body>
     <jsp:include page="header.jsp" />
-    <h1 class="text-center">Photo for <%=itemName%> in <%=listName%></h1>
+    <h1 class="text-center">Photo for <%=item.name%> in <%=item.list%></h1>
     <div class="pad">
         <div class="text-center">
-            <img src="<%=itemImagePath%>" class="img-fluid"/>
+            <img src="<%=item.image%>" class="img-fluid"/>
         </div>
     </div>
 </body>

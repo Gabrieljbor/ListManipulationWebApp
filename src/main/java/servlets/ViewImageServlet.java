@@ -1,5 +1,6 @@
 package servlets;
 
+import item.Item;
 import model.Model;
 import model.ModelFactory;
 
@@ -19,11 +20,9 @@ public class ViewImageServlet extends HttpServlet{
         String listName = request.getParameter("listName");
         String itemName = request.getParameter("itemName");
 
-        String itemImagePath = model.getItemImage(listName, itemName);
+        Item item = model.getList(listName).getItem(itemName);
 
-        request.setAttribute("itemImagePath", itemImagePath);
-        request.setAttribute("listName", listName);
-        request.setAttribute("itemName", itemName);
+        request.setAttribute("item", item);
 
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/viewImage.jsp");

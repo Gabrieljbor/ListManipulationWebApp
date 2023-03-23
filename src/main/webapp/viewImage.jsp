@@ -23,10 +23,10 @@
 
 <body>
     <jsp:include page="header.jsp" />
-    <h1 class="text-center">Photo for <%=item.name%> in <%=item.list%></h1>
+    <h1 class="text-center">Photo for <%=item.getName()%> in <%=item.getList()%></h1>
     <div class="pad">
         <div class="text-center">
-            <img src="<%=item.image%>" class="img-fluid"/>
+            <img src="<%=item.getImage()%>" class="img-fluid"/>
         </div>
     </div>
 </body>

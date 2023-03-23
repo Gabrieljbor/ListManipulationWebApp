@@ -24,7 +24,7 @@ public class Model
 
   public AList getList(String listName) {
     for (AList list : allLists) {
-      if (list.name.equals(listName)) {
+      if (list.getName().equals(listName)) {
         return list;
       }
     }
@@ -38,7 +38,7 @@ public class Model
       return;
     }
     for (AList list : allLists) {
-      if (listName.equals(list.name)) {
+      if (listName.equals(list.getName())) {
         return;
       }
     }
@@ -49,7 +49,7 @@ public class Model
   public String[] getListNames() {
     ArrayList<String> listNames = new ArrayList<>();
     for (AList list : allLists) {
-      listNames.add(list.name);
+      listNames.add(list.getName());
     }
     String[] names = new String[listNames.size()];
     return listNames.toArray(names);
@@ -62,21 +62,21 @@ public class Model
   // Edit the name of the list
   public void changeListName(String listName, String newListName) throws IOException {
     for (AList list : allLists) {
-      if (newListName.equals(list.name)) {
+      if (newListName.equals(list.getName())) {
         return;
       }
-      for (Item item : list.items) {
-          if (item.listLink.equals(listName)) {
+      for (Item item : list.getItems()) {
+          if (item.getListLink().equals(listName)) {
             ItemFilesEditor.setItemListLinkInData(item, newListName);
           }
       }
     }
     AList list = getList(listName);
-    list.name = newListName;
-    for (Item item : list.items) {
-      item.list = newListName;
-      if (!item.image.equals("")) {
-        item.image = "data" + File.separator + newListName + File.separator + item.name + File.separator + "img.jpg";
+    list.setName(newListName);
+    for (Item item : list.getItems()) {
+      item.setList(newListName);
+      if (!item.getImage().equals("")) {
+        item.setImage("data" + File.separator + newListName + File.separator + item.getName() + File.separator + "img.jpg");
       }
     }
 
@@ -92,8 +92,8 @@ public class Model
   // Get items from a list
   public String[] getListItems(String listName) {
     ArrayList<String> itemNames = new ArrayList<>();
-    for (Item item : getList(listName).items) {
-      itemNames.add(item.name);
+    for (Item item : getList(listName).getItems()) {
+      itemNames.add(item.getName());
     }
     String[] names = new String[itemNames.size()];
     return itemNames.toArray(names);
@@ -101,7 +101,7 @@ public class Model
   // Delete item from a list
   public void deleteListItem(String listName, String itemName){
     AList list = getList(listName);
-    list.items.remove(list.getItem(itemName));
+    list.getItems().remove(list.getItem(itemName));
     ListFilesEditor.deleteListItem(listName, itemName);
   }
 
@@ -121,7 +121,7 @@ public class Model
   public String getItemText(String listName, String itemName) {
     AList list = getList(listName);
     Item item = list.getItem(itemName);
-    return item.text;
+    return item.getText();
   }
   // Set and get item URL
   public void setItemURL(String listName, String itemName, String URL) throws IOException {
@@ -132,7 +132,7 @@ public class Model
   public String getItemURL(String listName, String itemName) {
     AList list = getList(listName);
     Item item = list.getItem(itemName);
-    return item.url;
+    return item.getUrl();
   }
   // Set and get item Image
   public void setItemImage(String listName, String itemName, Part filePart) throws IOException {
@@ -143,7 +143,7 @@ public class Model
   public String getItemImage(String listName, String itemName) {
     AList list = getList(listName);
     Item item = list.getItem(itemName);
-    return item.image;
+    return item.getImage();
   }
   public void deleteItemImage(String listName, String itemName) {
     AList list = getList(listName);
@@ -160,7 +160,7 @@ public class Model
   public String getItemListLink(String listName, String itemName) {
     AList list = getList(listName);
     Item item = list.getItem(itemName);
-    return item.listLink;
+    return item.getListLink();
   }
 
 
@@ -170,8 +170,8 @@ public class Model
     }
     List<Item> searchResults = new ArrayList<>();
     for (AList list : allLists) {
-      for (Item item : list.items) {
-        if (item.name.toLowerCase().contains(searchQuery.toLowerCase())) {
+      for (Item item : list.getItems()) {
+        if (item.getName().toLowerCase().contains(searchQuery.toLowerCase())) {
           searchResults.add(item);
         }
       }
@@ -185,7 +185,7 @@ public class Model
     }
     List<AList> searchResults = new ArrayList<>();
     for (AList list : allLists) {
-      if (list.name.toLowerCase().contains(searchQuery.toLowerCase())) {
+      if (list.getName().toLowerCase().contains(searchQuery.toLowerCase())) {
         searchResults.add(list);
       }
     }

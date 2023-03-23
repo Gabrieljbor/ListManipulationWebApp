@@ -46,18 +46,18 @@
                         <th class="text-center">List Link</th>
                     </tr>
                     <%
-                        for (Item item : model.getList(listName).items){
+                        for (Item item : model.getList(listName).getItems()){
                     %>
                     <tr>
-                        <td><a style="color: black" href="viewItem.html?listName=<%=listName%>&itemName=<%=item.name%>"><%=item.name%></a></td>
-                        <td><%=item.text%></td>
-                        <td><a href="<%=item.url%>" target="_blank"><%=item.url%></a></td>
+                        <td><a style="color: black" href="viewItem.html?listName=<%=listName%>&itemName=<%=item.getName()%>"><%=item.getName()%></a></td>
+                        <td><%=item.getText()%></td>
+                        <td><a href="<%=item.getUrl()%>" target="_blank"><%=item.getUrl()%></a></td>
                         <td>
-                            <% if (!(item.image).equals("")) {%>
-                            <a href="viewImage.html?listName=<%=listName%>&itemName=<%=item.name%>" target="_blank"><img style="max-width: 100%; max-height: 75px;" src="<%=item.image%>"/></a>
+                            <% if (!(item.getImage()).equals("")) {%>
+                            <a href="viewImage.html?listName=<%=listName%>&itemName=<%=item.getName()%>" target="_blank"><img style="max-width: 100%; max-height: 75px;" src="<%=item.getImage()%>"/></a>
                             <%}%>
                         </td>
-                        <td><a href="viewListData.html?listName=<%=item.listLink%>"><%=item.listLink%></a></td>
+                        <td><a href="viewListData.html?listName=<%=item.getListLink()%>"><%=item.getListLink()%></a></td>
                     </tr>
                     <%}%>
                 </tbody>

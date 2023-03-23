@@ -11,8 +11,8 @@ public class ItemFilesEditor {
     private static final String dataDirPath = "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "data" + File.separator;
 
     public static void changeItemNameInData(Item item, String newName) {
-        Path oldPath = Paths.get(dataDirPath, item.list, item.name);
-        Path newPath = Paths.get(dataDirPath, item.list, newName);
+        Path oldPath = Paths.get(dataDirPath, item.getList(), item.getName());
+        Path newPath = Paths.get(dataDirPath, item.getList(), newName);
         try {
             Files.move(oldPath, newPath);
         } catch (IOException e) {
@@ -21,15 +21,15 @@ public class ItemFilesEditor {
     }
 
     public static void setItemTextInData(Item item, String text) throws IOException {
-        FileHelpers.makeFile(dataDirPath + item.list + File.separator + item.name, "text.txt", text);
+        FileHelpers.makeFile(dataDirPath + item.getList() + File.separator + item.getName(), "text.txt", text);
     }
 
     public static void setItemURLInData(Item item, String URL) throws IOException {
-        FileHelpers.makeFile(dataDirPath + item.list + File.separator + item.name, "url.txt", URL);
+        FileHelpers.makeFile(dataDirPath + item.getList() + File.separator + item.getName(), "url.txt", URL);
     }
 
     public static void setItemImageInData(Item item, Part filePart) throws IOException {
-        File itemDir = new File(dataDirPath, item.list + File.separator + item.name);
+        File itemDir = new File(dataDirPath, item.getList() + File.separator + item.getName());
 
         try (OutputStream out = new FileOutputStream(new File(itemDir, "img.jpg"));
              InputStream fileContent = filePart.getInputStream()) {
@@ -42,10 +42,10 @@ public class ItemFilesEditor {
     }
 
     public static void deleteItemImageInData(Item item) {
-        FileHelpers.deleteDir(new File(dataDirPath + item.list + File.separator + item.name + File.separator + "img.jpg"));
+        FileHelpers.deleteDir(new File(dataDirPath + item.getList() + File.separator + item.getName() + File.separator + "img.jpg"));
     }
 
     public static void setItemListLinkInData(Item item, String listLink) throws IOException {
-        FileHelpers.makeFile(dataDirPath + item.list + File.separator + item.name, "listLink.txt", listLink);
+        FileHelpers.makeFile(dataDirPath + item.getList() + File.separator + item.getName(), "listLink.txt", listLink);
     }
 }

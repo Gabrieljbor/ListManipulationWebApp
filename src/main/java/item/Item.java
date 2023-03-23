@@ -8,7 +8,7 @@ import java.io.*;
 
 public class Item {
 
-    public String list, name, text, url, image, listLink;
+    private String list, name, text, url, image, listLink;
 
     public Item(String listName, String itemName) throws IOException {
         this.list = listName;
@@ -55,4 +55,39 @@ public class Item {
         ItemFilesEditor.setItemListLinkInData(this, listLink);
     }
 
+    public String getList() {
+        return this.list;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getText() {
+        return this.text;
+    }
+
+    public String getUrl() {
+        return this.url;
+    }
+
+    public String getListLink() {
+        return this.listLink;
+    }
+    public String getImage() {
+        return this.image;
+    }
+
+    public void setList(String newListName) {
+        this.list = newListName;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public void setListLink(String listLink) {
+        this.listLink = listLink;
+    }
 }
+

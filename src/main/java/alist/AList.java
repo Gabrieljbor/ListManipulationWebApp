@@ -9,8 +9,8 @@ import java.util.List;
 
 public class AList {
 
-    public List<Item> items;
-    public String name;
+    private final List<Item> items;
+    private String name;
 
     public AList(String listName) throws IOException {
         this.name = listName;
@@ -24,7 +24,7 @@ public class AList {
 
     public Item getItem(String itemName) {
         for (Item item : items) {
-            if (item.name.equals(itemName)) {
+            if (item.getName().equals(itemName)) {
                 return item;
             }
         }
@@ -35,7 +35,7 @@ public class AList {
             return;
         }
         for (Item item : this.items) {
-            if (itemName.equals(item.name)) {
+            if (itemName.equals(item.getName())) {
                 return;
             }
         }
@@ -43,5 +43,15 @@ public class AList {
         ListFilesEditor.addListItemInData(this.name, itemName);
     }
 
+    public List<Item> getItems() {
+        return new ArrayList<>(this.items);
+    }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

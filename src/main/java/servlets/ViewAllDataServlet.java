@@ -15,6 +15,10 @@ import java.io.IOException;
 @WebServlet("/viewAllData.html")
 public class ViewAllDataServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+        response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+        response.setHeader("Expires", "0"); // Proxies
+
         Model model = ModelFactory.getModel();
 
         request.setAttribute("data", model);

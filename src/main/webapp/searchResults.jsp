@@ -24,10 +24,10 @@
             <%
                 String currentListName = "";
                 for (Item item : searchResults) {
-                    if (!item.list.equals(currentListName)) { %>
-                        <h4><a href="viewList.html?listName=<%=item.list%>" style="color: black">In <%=item.list%></a></h4>
+                    if (!item.getList().equals(currentListName)) { %>
+                        <h4><a href="viewList.html?listName=<%=item.getList()%>" style="color: black">In <%=item.getList()%></a></h4>
                     <%}%>
-                    <a href="viewItem.html?listName=<%=item.list%>&itemName=<%=item.name%>"><%=item.name%></a>
+                    <a href="viewItem.html?listName=<%=item.getList()%>&itemName=<%=item.getName()%>"><%=item.getName()%></a>
                     <br>
             <%}%>
         </div>
@@ -36,7 +36,7 @@
         <%
             for (AList list : matchingLists) {
         %>
-            <a href="viewList.html?listName=<%=list.name%>"><%=list.name%></a>
+            <a href="viewList.html?listName=<%=list.getName()%>"><%=list.getName()%></a>
             <br>
         <%}%>
     </div>

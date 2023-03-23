@@ -49,10 +49,10 @@ public class ListFilesEditor {
 
     private static void updateLinkList(String changedListName, String newPath) throws IOException {
         for (AList list : ModelFactory.getModel().allLists) {
-            for (Item item : list.items) {
-                String itemLink = item.listLink;
+            for (Item item : list.getItems()) {
+                String itemLink = item.getListLink();
                 if (changedListName.equals(itemLink)) {
-                    item.listLink = changedListName.equals(newPath) ? "" : newPath;
+                    item.setListLink(changedListName.equals(newPath) ? "" : newPath);
                 }
             }
         }

@@ -22,6 +22,7 @@ public class Model
     }
   }
 
+  //Gets list object from the name of a list
   public AList getList(String listName) {
     for (AList list : allLists) {
       if (list.getName().equals(listName)) {

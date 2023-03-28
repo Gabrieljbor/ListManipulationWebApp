@@ -1,13 +1,12 @@
 package item;
 
 import fileio.GetFileData;
-
 import javax.servlet.http.Part;
 import java.io.*;
 
 
 public class Item {
-
+    //This is an item in a list which has a name and could have text, a url, an image or link to another list
     private String list, name, text, url, image, listLink;
 
     public Item(String listName, String itemName) throws IOException {
@@ -19,27 +18,21 @@ public class Item {
         this.listLink = GetFileData.getItemListLinkFromData(listName, itemName);
     }
 
-
     public void changeItemName(String newName) {
         ItemFilesEditor.changeItemNameInData(this, newName);
         this.name = newName;
     }
 
-    // Set item text
     public void setItemText(String text) throws IOException {
         this.text = text;
         ItemFilesEditor.setItemTextInData(this, text);
     }
 
-
-    // Set item URL
     public void setItemURL(String URL) throws IOException {
         this.url = URL;
         ItemFilesEditor.setItemURLInData(this, URL);
     }
 
-
-    // Set item Image
     public void setItemImage(Part filePart) throws IOException {
         this.image = "data" + File.separator + this.list + File.separator + this.name + File.separator + "img.jpg";
         ItemFilesEditor.setItemImageInData(this, filePart);
@@ -74,6 +67,7 @@ public class Item {
     public String getListLink() {
         return this.listLink;
     }
+
     public String getImage() {
         return this.image;
     }

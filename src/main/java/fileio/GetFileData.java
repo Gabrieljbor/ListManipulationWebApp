@@ -24,7 +24,6 @@ public class GetFileData {
     }
 
     public static String[] getItemNamesFromData(String listName) {
-
         Path dataDir = Paths.get(dataDirPath + File.separator + listName);
         try (Stream<Path> stream = Files.list(dataDir)) {
             return stream

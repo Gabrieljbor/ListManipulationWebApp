@@ -9,6 +9,7 @@ import java.util.List;
 
 public class AList {
 
+    //AList is an object that has a list of Items
     private final List<Item> items;
     private String name;
 

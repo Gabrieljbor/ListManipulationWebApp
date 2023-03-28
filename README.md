@@ -1,1 +1,1 @@
-Example Java web application for COMP0004
+<h1>List Manipulation Web App</h1>

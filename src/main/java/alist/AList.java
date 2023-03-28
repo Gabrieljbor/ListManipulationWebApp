@@ -2,7 +2,6 @@ package alist;
 
 import fileio.GetFileData;
 import item.Item;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +22,7 @@ public class AList {
         this.items = items;
     }
 
+    //Get the Item object from the itemName
     public Item getItem(String itemName) {
         for (Item item : items) {
             if (item.getName().equals(itemName)) {
@@ -31,6 +31,7 @@ public class AList {
         }
         return null;
     }
+
     public void addListItem(String itemName) throws IOException {
         if (itemName == null || itemName.isEmpty()) {
             return;

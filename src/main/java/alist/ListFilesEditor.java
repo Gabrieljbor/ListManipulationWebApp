@@ -3,14 +3,11 @@ package alist;
 import fileio.FileHelpers;
 import item.Item;
 import model.ModelFactory;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Objects;
 
 public class ListFilesEditor {
     private static final String dataDirPath = "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "data" + File.separator;
@@ -48,6 +45,7 @@ public class ListFilesEditor {
     }
 
     private static void updateLinkList(String changedListName, String newPath) throws IOException {
+        //Changes all occurrences of the list that is changed
         for (AList list : ModelFactory.getModel().allLists) {
             for (Item item : list.getItems()) {
                 String itemLink = item.getListLink();

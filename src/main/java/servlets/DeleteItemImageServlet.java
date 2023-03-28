@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/deleteItemFile.html")
-public class DeleteItemFileServlet extends HttpServlet {
+@WebServlet("/deleteItemImage.html")
+public class DeleteItemImageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Model model = ModelFactory.getModel();
         String listName = request.getParameter("listName");

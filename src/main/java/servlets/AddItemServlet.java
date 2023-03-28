@@ -2,7 +2,6 @@ package servlets;
 
 import model.Model;
 import model.ModelFactory;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;

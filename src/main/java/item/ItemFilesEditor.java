@@ -8,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 public class ItemFilesEditor {
+
+    //updates the Item's files in the data directory
     private static final String dataDirPath = "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "data" + File.separator;
 
     public static void changeItemNameInData(Item item, String newName) {

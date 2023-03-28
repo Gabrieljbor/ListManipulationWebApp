@@ -10,6 +10,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class ListFilesEditor {
+
+    //updates the list's files in the data directory
     private static final String dataDirPath = "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "data" + File.separator;
 
     public static void addListInData(String listName) {
@@ -46,7 +48,7 @@ public class ListFilesEditor {
 
     private static void updateLinkList(String changedListName, String newPath) throws IOException {
         //Changes all occurrences of the list that is changed
-        for (AList list : ModelFactory.getModel().allLists) {
+        for (AList list : ModelFactory.getModel().getAllLists()) {
             for (Item item : list.getItems()) {
                 String itemLink = item.getListLink();
                 if (changedListName.equals(itemLink)) {

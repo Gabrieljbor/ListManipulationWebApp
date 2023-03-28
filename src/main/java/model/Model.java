@@ -5,7 +5,6 @@ import alist.ListFilesEditor;
 import fileio.GetFileData;
 import item.Item;
 import item.ItemFilesEditor;
-
 import javax.servlet.http.Part;
 import java.io.*;
 import java.util.*;
@@ -13,13 +12,17 @@ import java.util.*;
 public class Model
 {
   //ArrayList of all lists of items
-  public ArrayList<AList> allLists = new ArrayList<>();
+  private final ArrayList<AList> allLists = new ArrayList<>();
 
   public Model() throws IOException {
     String[] listNames = GetFileData.getListNamesFromData();
     for (String listName : listNames) {
       allLists.add(new AList(listName));
     }
+  }
+
+  public ArrayList<AList> getAllLists() {
+    return allLists;
   }
 
   //Gets list object from the name of a list

@@ -62,9 +62,11 @@ public class GetFileData {
     public static String getItemImageFromData(String listName, String itemName) {
         String imgPath = dataDirPath + listName + File.separator + itemName + File.separator + "img.jpg";
         File img = new File(imgPath);
+
         if (!img.exists()) {
             return "";
         }
+
         return "data" + File.separator + listName + File.separator + itemName + File.separator + "img.jpg";
     }
 
@@ -75,6 +77,7 @@ public class GetFileData {
         if (!file.exists()) {
             return "";
         }
+
         return FileHelpers.readFileContent(file.getPath());
     }
 }

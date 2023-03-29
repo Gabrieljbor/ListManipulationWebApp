@@ -1,1 +1,0 @@
-Abstraction refers to the process of hiding implementation details while only showing the necessary information to users. In Java, this can be achieved through abstract classes and interfaces.

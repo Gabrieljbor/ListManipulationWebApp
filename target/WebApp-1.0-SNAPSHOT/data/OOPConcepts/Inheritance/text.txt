@@ -1,1 +1,0 @@
-Inheritance is a mechanism that allows a new class to be based on an existing class, inheriting properties and methods from that class. In Java, inheritance is achieved using the extends keyword.

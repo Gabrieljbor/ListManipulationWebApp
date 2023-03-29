@@ -1,0 +1,1 @@
+Polymorphism is the ability of objects with different data types to be accessed through a common interface. In Java, this can be achieved through method overloading and method overriding.

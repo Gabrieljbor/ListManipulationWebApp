@@ -4,6 +4,7 @@ import fileio.GetFileData;
 import item.Item;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class AList {
@@ -46,6 +47,7 @@ public class AList {
             }
         }
         items.add(new Item(this.name, itemName));
+        items.sort(Comparator.comparing(Item::getName));
         ListFilesEditor.addListItemInData(this.name, itemName);
     }
 

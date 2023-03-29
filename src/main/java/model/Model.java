@@ -99,7 +99,7 @@ public class Model
   }
   public void deleteListItem(String listName, String itemName){
     AList list = getList(listName);
-    list.getItems().remove(list.getItem(itemName));
+    list.deleteItem(list.getItem(itemName));
     ListFilesEditor.deleteListItem(listName, itemName);
   }
 

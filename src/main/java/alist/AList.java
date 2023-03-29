@@ -32,6 +32,10 @@ public class AList {
         return null;
     }
 
+    public void deleteItem(Item item) {
+        items.remove(item);
+    }
+
     public void addListItem(String itemName) throws IOException {
         if (itemName == null || itemName.isEmpty()) {
             return;

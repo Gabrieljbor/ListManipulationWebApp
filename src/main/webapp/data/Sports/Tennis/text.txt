@@ -1,0 +1,1 @@
+a racket sport where two or four players hit a ball back and forth across a net, trying to make it land within the bounds of their opponent's court and to ultimately win points by making their opponent fail to return the ball properly.

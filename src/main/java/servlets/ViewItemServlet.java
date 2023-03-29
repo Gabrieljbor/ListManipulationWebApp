@@ -16,6 +16,11 @@ import java.io.IOException;
 @WebServlet("/viewItem.html")
 public class ViewItemServlet extends HttpServlet{
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        //Clears cache
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+        response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+        response.setHeader("Expires", "0"); // Proxies.
+
         //Retrieves the model and gets the necessary parameters
         Model model = ModelFactory.getModel();
         String listName = request.getParameter("listName");

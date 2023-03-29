@@ -22,6 +22,7 @@
 <body>
     <jsp:include page="header.jsp"/>
 
+    <%--To view all data of each item stored grouped by list--%>
     <div class="container">
         <h1 class="text-center">Data</h1>
 

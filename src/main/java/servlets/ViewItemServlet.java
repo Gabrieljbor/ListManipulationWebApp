@@ -16,6 +16,7 @@ import java.io.IOException;
 @WebServlet("/viewItem.html")
 public class ViewItemServlet extends HttpServlet{
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        //Retrieves the model and gets the necessary parameters
         Model model = ModelFactory.getModel();
         String listName = request.getParameter("listName");
         String itemName = request.getParameter("itemName");
@@ -26,6 +27,7 @@ public class ViewItemServlet extends HttpServlet{
         request.setAttribute("item", item);
         request.setAttribute("listNames", listNames);
 
+        //Dispatches the JSP file
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/viewItem.jsp");
         dispatch.forward(request, response);

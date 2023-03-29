@@ -22,6 +22,7 @@
 </head>
 <body>
     <jsp:include page="header.jsp" />
+    <%--Here you can view all the data of the item and edit/remove it--%>
     <section class="bg-white">
         <h1 class="text-center"><%=item.getName()%></h1>
         <br>

@@ -18,6 +18,7 @@ import java.util.Objects;
 @WebServlet("/search.html")
 public class SearchServlet extends HttpServlet{
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        //Retrieves the model and gets the necessary parameters
         Model model = ModelFactory.getModel();
         String searchQuery = Objects.requireNonNullElse(request.getParameter("searchQuery"), "");
 
@@ -28,6 +29,7 @@ public class SearchServlet extends HttpServlet{
         request.setAttribute("searchQuery", searchQuery);
         request.setAttribute("matchingLists", matchingLists);
 
+        //Dispatches the JSP file
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/searchResults.jsp");
         dispatch.forward(request, response);

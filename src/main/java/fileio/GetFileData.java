@@ -9,6 +9,8 @@ import java.util.stream.Stream;
 
 public class GetFileData {
 
+    //Helps get data from files when program is initially run
+
     private static final String dataDirPath = "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "data" + File.separator;
 
     public static String[] getListNamesFromData() throws IOException {

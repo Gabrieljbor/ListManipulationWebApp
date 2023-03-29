@@ -15,11 +15,13 @@ import java.io.IOException;
 @WebServlet("/viewAllLists.html")
 public class ViewAllListsServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        //Retrieves the model and gets the necessary parameters
         Model model = ModelFactory.getModel();
         String[] listNames = model.getListNames();
 
         request.setAttribute("listNames", listNames);
 
+        //Dispatches the JSP file
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/viewAllLists.jsp");
         dispatch.forward(request, response);

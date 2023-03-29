@@ -11,7 +11,7 @@
 </head>
 <body>
     <jsp:include page="header.jsp"/>
-
+    <%--List of the list names and the ability to go into the list or delete it--%>
     <section class="bg-white">
         <div class="container" style="padding-bottom: 20px; width: 100%">
             <h1 class="text-center">Lists</h1>

@@ -13,6 +13,7 @@
 </head>
 
 <body>
+<%--Landing page which prompts the user to create lists and use the website--%>
     <jsp:include page="/header.jsp"/>
     <form action="viewAllLists.html" class="center">
         <button type="submit" class="btn btn-outline-success" style="width:800px;height:400px;font-size:50pt" >Create some lists!!!</button>

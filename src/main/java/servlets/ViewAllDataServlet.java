@@ -15,10 +15,12 @@ import java.io.IOException;
 @WebServlet("/viewAllData.html")
 public class ViewAllDataServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        //Retrieves the model and gets the necessary parameters
         Model model = ModelFactory.getModel();
 
         request.setAttribute("data", model);
 
+        //Dispatches the JSP file
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/viewAllData.jsp");
         dispatch.forward(request, response);

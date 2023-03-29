@@ -1,4 +1,5 @@
 <header>
+<%--The nav bar at the top of every webpage--%>
     <nav class="navbar navbar-expand navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="viewAllData.html" style="font-size: 40px">Lists</a>

@@ -22,6 +22,7 @@
 </head>
 
 <body>
+    <%--To view the image bigger, if you click on the image then this page pops up--%>
     <jsp:include page="header.jsp" />
     <h1 class="text-center">Photo for <%=item.getName()%> in <%=item.getList()%></h1>
     <div class="pad">

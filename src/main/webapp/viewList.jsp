@@ -12,7 +12,7 @@
 </head>
 <body>
     <jsp:include page="header.jsp" />
-
+    <%--View the list items and have the ability to change the name of the list--%>
     <section class="bg-white">
         <div class="container" style="padding-bottom: 20px; width: 100%">
             <h1 class="text-center"><%=listName%></h1>

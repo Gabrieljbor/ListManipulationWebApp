@@ -6,7 +6,7 @@ import java.io.*;
 
 
 public class Item {
-    //This is an item in a list which has a name and could have text, a url, an image or link to another list
+    //This is an item in a list which has a name and could have text, an url, an image or link to another list
     private String list, name, text, url, image, listLink;
 
     public Item(String listName, String itemName) throws IOException {

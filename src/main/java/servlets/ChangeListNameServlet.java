@@ -15,12 +15,14 @@ import java.io.IOException;
 @WebServlet("/changeListName.html")
 public class ChangeListNameServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //Retrieves the model and gets the necessary parameters
         Model model = ModelFactory.getModel();
         String listName = request.getParameter("listName");
         String newListName = request.getParameter("newListName");
 
         model.changeListName(listName, newListName);
 
+        //Dispatches the JSP file
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/viewAllLists.html");
         dispatch.forward(request, response);

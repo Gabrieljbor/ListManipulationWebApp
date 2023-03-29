@@ -19,6 +19,7 @@
 
     <h1 class="text-center">Search results for: "<%=searchQuery%>"</h1>
     <div class="col-10 offset-1 table-responsive table-scrollable-wrapper table-scrollbar table-fixed-header" style="padding-bottom: 30px">
+        <%--Shows the items that match the searchQuery and the list that they are in--%>
         <h2><u>Items</u></h2>
         <div>
             <%
@@ -32,6 +33,7 @@
             <%}%>
         </div>
         <br>
+        <%--Shows the lists that match the searchQuery--%>
         <h2><u>Lists:</u></h2>
         <%
             for (AList list : matchingLists) {

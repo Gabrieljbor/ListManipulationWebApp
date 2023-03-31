@@ -8,10 +8,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 @WebServlet("/setItemImage.html")
@@ -24,6 +21,7 @@ public class SetItemImageServlet extends HttpServlet {
         String itemName = request.getParameter("itemName");
         Part filePart = request.getPart("image");
 
+        model.deleteItemImage(listName, itemName);
         model.setItemImage(listName, itemName, filePart);
 
         request.setAttribute("listName", listName);

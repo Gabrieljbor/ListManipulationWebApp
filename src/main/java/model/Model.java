@@ -46,6 +46,7 @@ public class Model
       }
     }
     allLists.add(new AList(listName));
+    allLists.sort(Comparator.comparing(AList::getName));
     ListFilesEditor.addListInData(listName);
   }
   public String[] getListNames() {
